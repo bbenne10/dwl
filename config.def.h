@@ -130,6 +130,8 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "wmenu-run", NULL };
 
+#include "shiftview.c"
+
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
@@ -185,6 +187,8 @@ static const Button buttons[] = {
 };
 
 static const Gesture gestures[] = {
+	{ MODKEY, SWIPE_LEFT, 4, shiftview, { .i = 1 } },
+	{ MODKEY, SWIPE_RIGHT, 4, shiftview, { .i = -1 } },
 	{ MODKEY, SWIPE_UP, 3, focusstack, {.i = 1} },
 	{ MODKEY, SWIPE_DOWN, 3, focusstack, {.i = -1} },
 };
