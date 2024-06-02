@@ -1656,7 +1656,10 @@ getparentprocess(pid_t p)
 	if (!(f = fopen(buf, "r")))
 		return 0;
 
-	fscanf(f, "%*u %*s %*c %u", &v);
+	if (fscanf(f, "%*u %*s %*c %u", &v) != 4) {
+		fprintf(stderr, "Can't get parent process: failed to read /proc/%u/stat\n", (unsigned)p);
+	}
+
 	fclose(f);
 
 	return (pid_t)v;
