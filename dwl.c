@@ -1602,7 +1602,7 @@ drawbar(Monitor *m)
 
 		drwl_text(m->drw, x, 0, w, m->b.height, 0, "", 0);
 		w = MIN(w, clockw);
-		x = MAX(x, (m->b.real_width / 2) - (clockw / 2));
+		x = MAX(x, (m->b.width / 2) - (clockw / 2));
 		drwl_text(m->drw, x, 0, w, m->b.height, 0, clock, 0);
 	}
 
