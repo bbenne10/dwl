@@ -1548,20 +1548,17 @@ dirtomon(enum wlr_direction dir)
 void
 drawbar(Monitor *m)
 {
-        int x, w, tw, clockw, use_inverted = 0;
+	int x, w, tw, clockw, use_inverted = 0;
 	uint32_t i, occ = 0, urg = 0;
 	Client *c;
 	Buffer *buf;
 
-        time_t current;
-        char clock[100];
-        char * icon;
+	time_t current;
+	char clock[100];
+	char *icon;
 
-	uint32_t invertedSelClr[] = {
-	  colors[SchemeSel][ColBg],
-	  colors[SchemeSel][ColFg],
-	  colors[SchemeSel][ColBorder]
-	};
+	uint32_t invertedSelClr[] = { colors[SchemeSel][ColBg],
+		colors[SchemeSel][ColFg], colors[SchemeSel][ColBorder] };
 
 	if (!m->scene_buffer->node.enabled)
 		return;
@@ -1572,7 +1569,8 @@ drawbar(Monitor *m)
 	if (m == selmon) /* status is only drawn on selected monitor */
 		tw = drawstatus(m);
 
-	wl_list_for_each(c, &clients, link) {
+	wl_list_for_each(c, &clients, link)
+	{
 		if (c->mon != m)
 			continue;
 		occ |= c->tags;
@@ -1585,30 +1583,33 @@ drawbar(Monitor *m)
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(m, tags[i]);
 		use_inverted = m->tagset[m->seltags] & 1 << i;
-		drwl_setscheme(m->drw, use_inverted ? invertedSelClr : colors[SchemeNorm]);
+		drwl_setscheme(m->drw,
+		    use_inverted ? invertedSelClr : colors[SchemeNorm]);
 		icon = (occ & 1 << i) ? "" : "";
-		drwl_text(m->drw, x, 0, w, m->b.height, m->lrpad / 2, icon, urg & 1 << i);
+		drwl_text(m->drw, x, 0, w, m->b.height, m->lrpad / 2, icon,
+		    urg & 1 << i);
 		x += w;
 	}
 	w = TEXTW(m, m->ltsymbol);
 	drwl_setscheme(m->drw, colors[SchemeNorm]);
-	x = drwl_text(m->drw, x, 0, w, m->b.height, m->lrpad / 2, m->ltsymbol, 0);
+	x = drwl_text(m->drw, x, 0, w, m->b.height, m->lrpad / 2, m->ltsymbol,
+	    0);
 
 	if ((w = m->b.width - tw - x) > m->b.height) {
-          time(&current);
-          strftime(clock, 38, clock_fmt, localtime(&current));
-          clockw = TEXTW(m, clock);
+		time(&current);
+		strftime(clock, 38, clock_fmt, localtime(&current));
+		clockw = TEXTW(m, clock);
 
-          drwl_text(m->drw, x, 0, w, m->b.height, 0, "", 0);
-          w = MIN(w, clockw);
-          x = MAX(x, (m->b.real_width / 2) - (clockw / 2));
-          drwl_text(m->drw, x, 0, w, m->b.height, 0, clock, 0);
+		drwl_text(m->drw, x, 0, w, m->b.height, 0, "", 0);
+		w = MIN(w, clockw);
+		x = MAX(x, (m->b.real_width / 2) - (clockw / 2));
+		drwl_text(m->drw, x, 0, w, m->b.height, 0, clock, 0);
 	}
 
-	wlr_scene_buffer_set_dest_size(m->scene_buffer,
-		m->b.real_width, m->b.real_height);
+	wlr_scene_buffer_set_dest_size(m->scene_buffer, m->b.real_width,
+	    m->b.real_height);
 	wlr_scene_node_set_position(&m->scene_buffer->node, m->m.x,
-		m->m.y + (topbar ? 0 : m->m.height - m->b.real_height));
+	    m->m.y + (topbar ? 0 : m->m.height - m->b.real_height));
 	wlr_scene_buffer_set_buffer(m->scene_buffer, &buf->base);
 	wlr_buffer_unlock(&buf->base);
 }
