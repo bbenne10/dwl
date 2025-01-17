@@ -48,7 +48,7 @@
     in
     {
       packages.x86_64-linux = rec {
-        inherit dwl dwls;
+        inherit dwl dwls slstatus;
 
         default = dwls;
       };
