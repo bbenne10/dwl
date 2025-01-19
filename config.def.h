@@ -12,7 +12,7 @@ static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const unsigned int borderpx         = 3;  /* border pixel of windows */
 static const int showbar                   = 1; /* 0 means no bar */
 static const int topbar                    = 1; /* 0 means bottom bar */
-static const char *fonts[]                 = {"Rec Mono Semicasual:size=10"};
+static const char *fonts[]                 = {"RecMonoSmCasual Nerd Font:size=12"};
 static const float rootcolor[]             = COLOR(0x2E383CFF);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
